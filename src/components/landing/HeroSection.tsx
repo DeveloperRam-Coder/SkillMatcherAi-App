@@ -17,12 +17,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ reduceMotion }) => {
   const heroYTransform = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
 
   return (
-   <motion.div
-  className="relative overflow-hidden bg-white pt-20 pb-20 border-b border-gray-100"
-  style={{
-    y: reduceMotion ? 0 : heroYTransform,
-    opacity: 1,
-    backgroundImage: `repeating-linear-gradient(
+    <motion.div
+      className="relative overflow-hidden bg-white pt-20 pb-20  border-b border-gray-100"
+      style={{
+        y: reduceMotion ? 0 : heroYTransform,
+        opacity: 1,
+        backgroundImage: `repeating-linear-gradient(
       to right,
       rgba(0,0,0,0.05) 0,
       rgba(0,0,0,0.05) 1px,
@@ -36,19 +36,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ reduceMotion }) => {
       transparent 1px,
       transparent 20px
     )`,
-    backgroundSize: '20px 20px',
-    backgroundPosition: '0 0',
-  }}
-  animate={{
-    backgroundPosition: ['0 0', '20px 20px'], // move diagonally
-  }}
-  transition={{
-    repeat: Infinity,
-    repeatType: 'loop',
-    duration: 20, // slow animation for subtle effect
-    ease: 'linear',
-  }}
->
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0',
+      }}
+      animate={{
+        backgroundPosition: ['0 0', '20px 20px'], // move diagonally
+      }}
+      transition={{
+        repeat: Infinity,
+        repeatType: 'loop',
+        duration: 20, // slow animation for subtle effect
+        ease: 'linear',
+      }}
+    >
       {/* Decorative Background Pattern (optional) */}
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
 
@@ -165,14 +165,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ reduceMotion }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="relative bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-100">
-              <div className="bg-gray-50 p-4 flex items-center border-b border-gray-200">
+            <div className="relative bg-white rounded-lg shadow-2xl overflow-hidden border border-dark gray-200 ">
+              <div className="bg-gray-100 p-4 flex items-center border-b border-gray-200">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                   <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 </div>
-                <div className="text-sm text-center text-gray-600 flex-1">
+                <div className="text-sm text-center text-blue-600 flex-1">
                   SkillMatcherAi Dashboard
                 </div>
               </div>
