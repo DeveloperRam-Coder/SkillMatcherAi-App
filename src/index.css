@@ -167,3 +167,30 @@
     padding-top: env(safe-area-inset-top, 0);
   }
 }
+
+/* Enhanced border styles for all components */
+@layer components {
+  .card-bordered {
+    @apply border border-border rounded-lg shadow-sm;
+  }
+  
+  .section-bordered {
+    @apply border border-border/50 rounded-xl;
+  }
+  
+  .input-bordered {
+    @apply border border-border focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+  
+  .button-bordered {
+    @apply border border-border hover:border-primary/50 transition-colors;
+  }
+  
+  .divider-bordered {
+    @apply border-t border-border/50;
+  }
+  
+  .grid-bordered {
+    @apply border border-border/30 rounded-lg;
+  }
+}

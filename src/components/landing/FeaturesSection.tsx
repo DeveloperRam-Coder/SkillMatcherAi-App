@@ -46,7 +46,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) =>
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            Everything you need for better interviews
+            Everything You Need for Career Success
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) =>
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600"
           >
-            Our platform streamlines your entire interview process with powerful tools designed for every stakeholder.
+            From resume optimization to interview mastery, we've got you covered at every step of your career journey.
           </motion.p>
         </div>
         

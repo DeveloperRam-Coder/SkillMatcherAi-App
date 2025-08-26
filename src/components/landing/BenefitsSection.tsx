@@ -18,17 +18,17 @@ const BenefitItem: React.FC<BenefitItemProps> = ({ icon, title, description, del
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
     >
-      <Card className="border-none shadow-soft h-full transition-all duration-300 hover:shadow-hover">
+      <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-soft h-full transition-all duration-300 hover:shadow-hover bg-white dark:bg-gray-800">
         <CardContent className="pt-6">
           <div className="flex flex-col items-center text-center">
             <motion.div
               whileHover={{ scale: 1.1, rotate: 5 }}
-              className="mb-4"
+              className="mb-4 p-3 rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
             >
               {icon}
             </motion.div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-            <p className="text-gray-600">{description}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
+            <p className="text-gray-600 dark:text-gray-300">{description}</p>
           </div>
         </CardContent>
       </Card>
@@ -61,7 +61,7 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) =>
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            Transform Your Hiring Process
+            Accelerate Your Career Growth
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) =>
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600"
           >
-            Companies using SkillMatcherAi see immediate improvements in efficiency, quality, and candidate experience.
+            Job seekers using SkillMatcherAi land interviews faster, improve their skills, and advance their careers with confidence.
           </motion.p>
         </div>
         
