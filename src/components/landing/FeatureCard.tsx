@@ -55,20 +55,20 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
       whileHover={{ y: -10 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <Card className="border-none shadow-soft hover:shadow-hover transition-all duration-300 h-full">
+      <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-soft hover:shadow-hover transition-all duration-300 h-full bg-white dark:bg-gray-800">
         <CardHeader className="pb-2">
           <motion.div 
-            className={`w-12 h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center mb-4`}
+            className={`w-12 h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center mb-4 border border-current/20`}
             whileHover={{ scale: 1.1, rotate: 5 }}
           >
             {React.cloneElement(icon as React.ReactElement, { className: "h-6 w-6" })}
           </motion.div>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-gray-900 dark:text-white">{title}</CardTitle>
+          <CardDescription className="text-gray-600 dark:text-gray-300">
             {description}
           </CardDescription>
         </CardHeader>
-        <CardContent className="text-gray-600">
+        <CardContent className="text-gray-600 dark:text-gray-300">
           <ul className="space-y-2">
             {features.map((feature, i) => (
               <motion.li 

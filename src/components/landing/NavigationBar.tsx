@@ -146,32 +146,32 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Career Tools</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-4 w-[400px] md:w-[500px] grid-cols-1">
                     {[
                       {
-                        title: "For Enterprises",
-                        description: "Scale your hiring with enterprise-grade features",
-                        icon: "BriefcaseBusiness",
+                        title: "AI Mock Interviews",
+                        description: "Practice with realistic AI interviewers",
+                        icon: "Bot",
                         color: "bg-blue-100 text-blue-600"
                       },
                       {
-                        title: "For Startups",
-                        description: "Affordable solutions to grow your team efficiently",
-                        icon: "Rocket",
+                        title: "ATS Resume Builder",
+                        description: "Create resumes that pass ATS systems",
+                        icon: "FileText",
                         color: "bg-green-100 text-green-600"
                       },
                       {
-                        title: "For Agencies",
-                        description: "Specialized tools for recruitment agencies",
-                        icon: "Briefcase",
+                        title: "Skill Assessments",
+                        description: "Test and improve your technical skills",
+                        icon: "ClipboardList",
                         color: "bg-purple-100 text-purple-600"
                       },
                       {
-                        title: "Remote Hiring",
-                        description: "Solutions optimized for distributed teams",
-                        icon: "Globe",
+                        title: "Job Matching",
+                        description: "AI-powered job recommendations",
+                        icon: "Rocket",
                         color: "bg-orange-100 text-orange-600"
                       },
                     ].map((item, idx) => (
@@ -199,28 +199,28 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4">
                     <ListItem
-                      title="Blog"
+                      title="Career Blog"
                       href="#"
                     >
-                      Expert insights on hiring and interview best practices
+                      Expert insights on job searching and career growth
                     </ListItem>
                     <ListItem
-                      title="Help Center"
+                      title="Interview Tips"
                       href="#"
                     >
-                      Comprehensive guides and support resources
+                      Comprehensive guides for interview success
                     </ListItem>
                     <ListItem
-                      title="Case Studies"
+                      title="Resume Guide"
                       href="#"
                     >
-                      See how other companies succeed with SkillMatcherAi
+                      Learn how to create ATS-optimized resumes
                     </ListItem>
                     <ListItem
-                      title="Webinars"
+                      title="Success Stories"
                       href="#"
                     >
-                      Live and on-demand training sessions
+                      See how others landed their dream jobs
                     </ListItem>
                   </ul>
                 </NavigationMenuContent>
@@ -232,7 +232,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                   className={navigationMenuTriggerStyle()}
                   onClick={() => scrollToSection('benefits')}
                 >
-                  Benefits
+                  Why Choose Us
                 </Button>
               </NavigationMenuItem>
 
@@ -261,7 +261,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                 <SheetHeader>
                   <SheetTitle className="text-blue-600">SkillMatcherAi</SheetTitle>
                   <SheetDescription>
-                    Complete Interview Management Platform
+                    AI-Powered Career Growth Platform
                   </SheetDescription>
                 </SheetHeader>
                 <div className="mt-6 flex flex-col gap-4">

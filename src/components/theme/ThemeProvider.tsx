@@ -65,7 +65,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ThemeContext.Provider>
   );
 };
-
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
@@ -73,3 +72,4 @@ export const useTheme = () => {
   }
   return context;
 };
+

@@ -21,37 +21,37 @@ export const TestimonialCarousel: React.FC = () => {
   
   const testimonials: Testimonial[] = [
     {
-      name: "Sarah Johnson",
-      title: "HR Director",
+      name: "Alex Chen",
+      title: "Software Engineer",
       company: "TechCorp",
-      content: "SkillMatcherAi has transformed our hiring process. We've reduced our time-to-hire by 40% and improved the quality of our hires significantly.",
+      content: "SkillMatcherAi helped me land my dream job at a top tech company. The AI mock interviews were incredibly realistic and the ATS resume optimization got me past the initial screening.",
       rating: 5,
       avatar: "blue",
       color: "blue"
     },
     {
-      name: "Michael Chen",
-      title: "Lead Developer",
-      company: "StartupX",
-      content: "As an interviewer, I appreciate how easy it is to provide feedback and review candidate information. The interface is intuitive and saves me tons of time.",
+      name: "Sarah Rodriguez",
+      title: "Marketing Manager",
+      company: "Global Solutions",
+      content: "After 6 months of job searching, I used SkillMatcherAi and got 3 interviews in 2 weeks. The platform's insights helped me understand exactly what employers were looking for.",
       rating: 5,
       avatar: "green",
       color: "green"
     },
     {
-      name: "Emily Rodriguez",
-      title: "Recent Hire",
-      company: "Global Co.",
-      content: "As a candidate, I loved how organized my interview process was. I received timely notifications and clear instructions every step of the way.",
+      name: "Michael Thompson",
+      title: "Data Analyst",
+      company: "Analytics Inc.",
+      content: "The mock tests and skill assessments helped me identify my weak areas. I focused on improving those skills and saw my interview success rate jump from 20% to 80%.",
       rating: 5,
       avatar: "purple",
       color: "purple"
     },
     {
-      name: "David Thompson",
-      title: "Recruiting Manager",
-      company: "Enterprise Inc.",
-      content: "The analytics and reporting features have given us insights we never had before. We can now make data-driven decisions about our hiring process.",
+      name: "Emily Johnson",
+      title: "UX Designer",
+      company: "Creative Co.",
+      content: "The ATS resume builder is a game-changer! I went from getting 0 responses to landing interviews at top companies. The keyword optimization really works.",
       rating: 5,
       avatar: "orange",
       color: "orange"
@@ -108,6 +108,14 @@ export const TestimonialCarousel: React.FC = () => {
   return (
     <div className="relative">
       <div className="px-4 md:px-12 lg:px-24">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            {/* Trusted by Job Seekers Worldwide */}
+          </h2>
+          <p className="text-xl text-gray-600">
+            {/* See how our platform has transformed careers and accelerated job success */}
+          </p>
+        </div>
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentIndex}
@@ -119,11 +127,11 @@ export const TestimonialCarousel: React.FC = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="w-full"
           >
-            <Card className="bg-white shadow-soft border-none md:px-8 py-4">
+            <Card className="bg-white dark:bg-gray-800 shadow-soft border-2 border-gray-200 dark:border-gray-700 md:px-8 py-4">
               <CardContent className="p-6 md:p-8">
                 <div className="grid md:grid-cols-[1fr,3fr] gap-8">
                   <div className="flex items-center justify-center">
-                    <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${colorClasses[testimonials[currentIndex].color]} flex items-center justify-center`}>
+                    <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${colorClasses[testimonials[currentIndex].color]} flex items-center justify-center border-2 border-current/20`}>
                       <UserCheck className={`h-8 w-8 md:h-12 md:w-12 ${colorTextClasses[testimonials[currentIndex].color]}`} />
                     </div>
                   </div>
@@ -131,8 +139,8 @@ export const TestimonialCarousel: React.FC = () => {
                   <div>
                     <div className="flex items-center mb-4">
                       <div>
-                        <h3 className="text-xl font-bold">{testimonials[currentIndex].name}</h3>
-                        <p className="text-gray-600">{testimonials[currentIndex].title}, {testimonials[currentIndex].company}</p>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{testimonials[currentIndex].name}</h3>
+                        <p className="text-gray-600 dark:text-gray-400">{testimonials[currentIndex].title}, {testimonials[currentIndex].company}</p>
                       </div>
                     </div>
                     
@@ -142,7 +150,7 @@ export const TestimonialCarousel: React.FC = () => {
                       ))}
                     </div>
                     
-                    <p className="text-lg text-gray-700 italic">"{testimonials[currentIndex].content}"</p>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 italic">"{testimonials[currentIndex].content}"</p>
                   </div>
                 </div>
               </CardContent>
