@@ -9,6 +9,8 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // Include cookies for refresh token flows
+  withCredentials: true,
   // Add timeout to prevent hanging requests
   timeout: 10000,
 });
