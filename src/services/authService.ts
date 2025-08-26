@@ -62,8 +62,9 @@ const DEMO_USERS = {
 
 // Check if we're in demo mode
 const isInDemoMode = () => {
-  // For now, always use demo mode - in a real app, you'd check env vars
-  return true;
+  // Switchable via env; default to real API
+  const flag = import.meta.env.VITE_DEMO_MODE;
+  return String(flag).toLowerCase() === 'true';
 };
 
 export const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
@@ -71,14 +72,22 @@ export const login = async (credentials: LoginCredentials): Promise<AuthResponse
     return handleDemoLogin(credentials);
   }
   
-  try {
-    const response = await api.post('/auth/login', credentials);
-    return response.data;
-  } catch (error) {
-    console.error('API login error:', error);
-    // Fall back to demo login if API fails
-    return handleDemoLogin(credentials);
-  }
+  const response = await api.post('/auth/login', credentials);
+  const data = response.data as any;
+  // Backend returns {_id,name,email,role,token}; map to front User
+  const [firstName, ...rest] = (data.name || '').split(' ');
+  const lastName = rest.join(' ');
+  const user: User = {
+    id: data._id,
+    email: data.email,
+    firstName: firstName || data.name || '',
+    lastName: lastName || '',
+    role: data.role,
+    isActive: true,
+    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || data.email)}`,
+    name: data.name,
+  };
+  return { token: data.token, user };
 };
 
 const handleDemoLogin = (credentials: LoginCredentials): Promise<AuthResponse> => {
@@ -102,14 +111,28 @@ export const register = async (userData: RegisterData): Promise<AuthResponse> =>
     return handleDemoRegister(userData);
   }
   
-  try {
-    const response = await api.post('/auth/register', userData);
-    return response.data;
-  } catch (error) {
-    console.error('API register error:', error);
-    // Fall back to demo register if API fails
-    return handleDemoRegister(userData);
-  }
+  // Backend expects {name,email,password,role}
+  const payload = {
+    name: `${userData.firstName} ${userData.lastName}`.trim(),
+    email: userData.email,
+    password: userData.password,
+    role: userData.role,
+  };
+  const response = await api.post('/auth/register', payload);
+  const data = response.data as any;
+  const [firstName, ...rest] = (data.name || '').split(' ');
+  const lastName = rest.join(' ');
+  const user: User = {
+    id: data._id,
+    email: data.email,
+    firstName: firstName || data.name || '',
+    lastName: lastName || '',
+    role: data.role,
+    isActive: true,
+    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || data.email)}`,
+    name: data.name,
+  };
+  return { token: data.token, user };
 };
 
 const handleDemoRegister = (userData: RegisterData): Promise<AuthResponse> => {
