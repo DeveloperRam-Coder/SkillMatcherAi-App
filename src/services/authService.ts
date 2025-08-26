@@ -167,17 +167,32 @@ export const logout = () => {
 };
 
 export const getCurrentUser = async (): Promise<User> => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error('No authentication token found');
-    
-    const userInfo = localStorage.getItem('user');
-    if (!userInfo) throw new Error('No user information found');
-    
-    return JSON.parse(userInfo);
-  } catch (error) {
-    throw new Error('Failed to get current user');
+  if (isInDemoMode()) {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('No authentication token found');
+      const userInfo = localStorage.getItem('user');
+      if (!userInfo) throw new Error('No user information found');
+      return JSON.parse(userInfo);
+    } catch (error) {
+      throw new Error('Failed to get current user');
+    }
   }
+  const response = await api.get('/auth/me');
+  const data = response.data as any;
+  const [firstName, ...rest] = (data.name || '').split(' ');
+  const lastName = rest.join(' ');
+  const user: User = {
+    id: data._id,
+    email: data.email,
+    firstName: firstName || data.name || '',
+    lastName: lastName || '',
+    role: data.role,
+    isActive: true,
+    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || data.email)}`,
+    name: data.name,
+  };
+  return user;
 };
 
 export const isAuthenticated = (): boolean => {

@@ -6,7 +6,7 @@ import {
   login as apiLogin, 
   register as apiRegister, 
   logout as apiLogout, 
-  isAuthenticated as checkIsAuthenticated,
+  getCurrentUser as apiGetCurrentUser,
   AuthResponse
 } from '@/services/authService';
 import { useToast } from '@/components/ui/use-toast';
@@ -46,32 +46,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is already logged in
-    const token = localStorage.getItem('token');
-    const userInfo = localStorage.getItem('user');
-    
-    if (token && userInfo) {
+    const init = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
+      }
       try {
-        const parsedUser = JSON.parse(userInfo);
-        // Create a combined user object with both firstName/lastName and name for compatibility
-        if (!parsedUser.name && parsedUser.firstName) {
-          parsedUser.name = `${parsedUser.firstName} ${parsedUser.lastName}`;
-        }
-        // Set avatarUrl for backward compatibility
-        if (!parsedUser.avatarUrl && parsedUser.avatar) {
-          parsedUser.avatarUrl = parsedUser.avatar;
-        }
-        setUser(parsedUser);
-        
-        console.log("User restored from localStorage:", parsedUser);
-      } catch (err) {
-        console.error("Error parsing user from localStorage:", err);
+        const backendUser = await apiGetCurrentUser();
+        const userWithCompat = {
+          ...backendUser,
+          avatarUrl: backendUser.avatar,
+          theme: (backendUser as any).theme || 'light',
+          colorScheme: (backendUser as any).colorScheme || 'blue'
+        } as User;
+        setUser(userWithCompat);
+        localStorage.setItem('user', JSON.stringify(userWithCompat));
+      } catch (e) {
+        console.error('Failed to validate token with backend:', e);
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+      } finally {
+        setLoading(false);
       }
-    }
-    
-    setLoading(false);
+    };
+    init();
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
