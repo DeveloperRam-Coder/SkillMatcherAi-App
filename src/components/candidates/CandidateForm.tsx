@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { Candidate, CandidateStatus } from "@/types";
+import { Candidate, CandidateStatus } from "../../types";
 import { createCandidate, updateCandidate } from "@/services/candidateService";
 
 // Define the status options using the CandidateStatus type

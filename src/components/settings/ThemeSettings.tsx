@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Sun, Moon, Laptop, Palette } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThemeType, ColorScheme } from "@/types";
+import { ThemeType, ColorScheme } from "../../types";
 
 const ThemeSettings = () => {
   const { theme, colorScheme, setTheme, setColorScheme } = useTheme();

@@ -3,10 +3,15 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '@/pages/Login';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
+import AdminCandidates from '@/pages/admin/AdminCandidates';
+import AdminInterviews from '@/pages/admin/AdminInterviews';
+import AdminFeedback from '@/pages/admin/AdminFeedback';
 import CandidateDashboard from '@/pages/candidate/CandidateDashboard';
-import InterviewerDashboard from '@/pages/interviewer/InterviewerDashboard';
 import CandidateProfile from '@/pages/candidate/CandidateProfile';
+import CandidateApplications from '@/pages/candidate/CandidateApplications';
+import InterviewerDashboard from '@/pages/interviewer/InterviewerDashboard';
 import InterviewerProfile from '@/pages/interviewer/InterviewerProfile';
+import InterviewerFeedback from '@/pages/interviewer/InterviewerFeedback';
 import Dashboard from '@/pages/Dashboard';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import UserSettings from '@/pages/settings/UserSettings';
@@ -16,6 +21,21 @@ import Index from '@/pages/Index';
 import About from '@/pages/About';
 import Interviews from '@/pages/Interviews';
 import AdvancedInterviews from '@/pages/AdvancedInterviews';
+import Candidates from '@/pages/Candidates';
+import CandidateDetail from '@/pages/CandidateDetail';
+import InterviewDetail from '@/pages/InterviewDetail';
+import Feedback from '@/pages/Feedback';
+import Reports from '@/pages/Reports';
+import Settings from '@/pages/Settings';
+import NotFound from '@/pages/NotFound';
+import Blog from '@/pages/resources/Blog';
+import InterviewTips from '@/pages/resources/InterviewTips';
+import ResumeGuide from '@/pages/resources/ResumeGuide';
+import SuccessStories from '@/pages/resources/SuccessStories';
+import MockInterviews from '@/pages/tools/MockInterviews';
+import ResumeBuilder from '@/pages/tools/ResumeBuilder';
+import SkillAssessments from '@/pages/tools/SkillAssessments';
+import JobMatching from '@/pages/tools/JobMatching';
 
 const RouteComponents = () => {
   const { user, isAuthenticated } = useAuth();
@@ -49,6 +69,14 @@ const RouteComponents = () => {
       {/* Public routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/about" element={<About />} />
+      <Route path="/resources/blog" element={<Blog />} />
+      <Route path="/resources/interview-tips" element={<InterviewTips />} />
+      <Route path="/resources/resume-guide" element={<ResumeGuide />} />
+      <Route path="/resources/success-stories" element={<SuccessStories />} />
+      <Route path="/tools/mock-interviews" element={<MockInterviews />} />
+      <Route path="/tools/resume-builder" element={<ResumeBuilder />} />
+      <Route path="/tools/skill-assessments" element={<SkillAssessments />} />
+      <Route path="/tools/job-matching" element={<JobMatching />} />
       
       {/* Dashboard redirect */}
       <Route path="/" element={redirectToDashboard()} />
@@ -59,6 +87,78 @@ const RouteComponents = () => {
         element={
           <ProtectedRoute allowedRoles={["admin"]}>
             <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/candidates"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminCandidates />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/candidates/:id"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <CandidateDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/candidates/:id/edit"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <CandidateDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/interviews"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminInterviews />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/interviews/:id"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <InterviewDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/interviews/:id/edit"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <InterviewDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/feedback"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminFeedback />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/feedback/:id"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <Feedback />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/feedback/:id/edit"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <Feedback />
           </ProtectedRoute>
         }
       />
@@ -97,6 +197,30 @@ const RouteComponents = () => {
         }
       />
       <Route
+        path="/candidate/applications"
+        element={
+          <ProtectedRoute allowedRoles={["candidate"]}>
+            <CandidateApplications />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/candidate/applications/:id"
+        element={
+          <ProtectedRoute allowedRoles={["candidate"]}>
+            <CandidateApplications />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/candidate/applications/:id/edit"
+        element={
+          <ProtectedRoute allowedRoles={["candidate"]}>
+            <CandidateApplications />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/candidate/settings"
         element={
           <ProtectedRoute allowedRoles={["candidate"]}>
@@ -123,6 +247,22 @@ const RouteComponents = () => {
         }
       />
       <Route
+        path="/interviewer/feedback"
+        element={
+          <ProtectedRoute allowedRoles={["interviewer"]}>
+            <InterviewerFeedback />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/interviewer/feedback/:id"
+        element={
+          <ProtectedRoute allowedRoles={["interviewer"]}>
+            <InterviewerFeedback />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/interviewer/settings"
         element={
           <ProtectedRoute allowedRoles={["interviewer"]}>
@@ -144,7 +284,7 @@ const RouteComponents = () => {
         path="/settings"
         element={
           <ProtectedRoute>
-            <UserSettings />
+            <Settings />
           </ProtectedRoute>
         }
       />
@@ -155,6 +295,14 @@ const RouteComponents = () => {
         element={
           <ProtectedRoute>
             <Interviews />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/interviews/:id"
+        element={
+          <ProtectedRoute>
+            <InterviewDetail />
           </ProtectedRoute>
         }
       />
@@ -177,8 +325,54 @@ const RouteComponents = () => {
         }
       />
       
+      {/* Candidate routes */}
+      <Route
+        path="/candidates"
+        element={
+          <ProtectedRoute>
+            <Candidates />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/candidates/:id"
+        element={
+          <ProtectedRoute>
+            <CandidateDetail />
+          </ProtectedRoute>
+        }
+      />
+      
+      {/* Feedback routes */}
+      <Route
+        path="/feedback"
+        element={
+          <ProtectedRoute>
+            <Feedback />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/feedback/:id"
+        element={
+          <ProtectedRoute>
+            <Feedback />
+          </ProtectedRoute>
+        }
+      />
+      
+      {/* Reports routes */}
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        }
+      />
+      
       {/* Catch-all redirect to login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

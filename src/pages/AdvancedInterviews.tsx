@@ -47,7 +47,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import InterviewCalendar from "@/components/interviews/InterviewCalendar";
 import InterviewsList from "@/components/interviews/InterviewsList";
 import AdvancedScheduleForm from "@/components/interviews/AdvancedScheduleForm";
-import { AdvancedInterview, InterviewStatus, InterviewType } from "@/types";
+import { AdvancedInterview, InterviewStatus, InterviewType } from "./types";
 import { toast } from "@/hooks/use-toast";
 import { v4 as uuidv4 } from "uuid";
 

@@ -1,3 +1,4 @@
+// ==================== User ====================
 export interface User {
   id: string;
   email: string;
@@ -5,17 +6,29 @@ export interface User {
   lastName: string;
   role: string;
   avatar?: string;
-  avatarUrl?: string; // Added for backward compatibility
-  name?: string; // Added for backward compatibility
+  avatarUrl?: string;
+  name?: string;
   department?: string;
   isActive: boolean;
-  theme?: ThemeType; // Added for theme support
-  colorScheme?: ColorScheme; // Added for theme support
+  theme?: ThemeType;
+  colorScheme?: ColorScheme;
 }
 
-// Add the missing ThemeType and ColorScheme types
 export type ThemeType = 'light' | 'dark' | 'system';
 export type ColorScheme = 'blue' | 'green' | 'purple' | 'orange' | 'pink';
+
+// ==================== Candidate ====================
+export const CandidateStatus = {
+  Applied: 'Applied',
+  Screening: 'Screening',
+  Technical: 'Technical',
+  Cultural: 'Cultural',
+  Offer: 'Offer',
+  Hired: 'Hired',
+  Rejected: 'Rejected'
+} as const;
+
+export type CandidateStatus = typeof CandidateStatus[keyof typeof CandidateStatus];
 
 export interface Candidate {
   id: string;
@@ -30,25 +43,44 @@ export interface Candidate {
   appliedDate: string;
   skills: Skill[];
   resumeUrl?: string;
-  documents?: Document[];
-  availability?: TimeSlot[];
-  timeZone?: string;
 }
-
-export type CandidateStatus = 
-  | 'Applied' 
-  | 'Screening' 
-  | 'Technical' 
-  | 'Cultural' 
-  | 'Offer' 
-  | 'Hired' 
-  | 'Rejected';
 
 export interface Skill {
   id: string;
   name: string;
-  category?: string;
+  category: string;
 }
+
+// ==================== Interview ====================
+export const InterviewStatus = {
+  Scheduled: 'Scheduled',
+  Confirmed: 'Confirmed',
+  Completed: 'Completed',
+  Canceled: 'Canceled',
+  Rescheduled: 'Rescheduled',
+  NoShow: 'No Show',
+  InProgress: 'In Progress',
+  PendingFeedback: 'Pending Feedback',
+} as const;
+
+export type InterviewStatus = typeof InterviewStatus[keyof typeof InterviewStatus];
+
+export const InterviewType = {
+  Screening: 'Screening',
+  Technical: 'Technical',
+  Behavioral: 'Behavioral',
+  Cultural: 'Cultural',
+  Final: 'Final',
+  HR: 'HR',
+  Panel: 'Panel',
+  Group: 'Group',
+  OneOnOne: 'One-on-One',
+  CodingAssessment: 'Coding Assessment',
+  CaseStudy: 'Case Study',
+  PortfolioReview: 'Portfolio Review'
+} as const;
+
+export type InterviewType = typeof InterviewType[keyof typeof InterviewType];
 
 export interface Interview {
   id: string;
@@ -71,29 +103,17 @@ export interface Interview {
   isAiRecommended?: boolean;
 }
 
-export type InterviewType = 
-  | 'Screening' 
-  | 'Technical' 
-  | 'Behavioral' 
-  | 'Cultural' 
-  | 'Final'
-  | 'HR'
-  | 'Panel'
-  | 'Group'
-  | 'One-on-One'
-  | 'Coding Assessment'
-  | 'Case Study'
-  | 'Portfolio Review';
+// ==================== Feedback ====================
+export const Recommendation = {
+  StrongHire: 'Strong Hire',
+  Hire: 'Hire',
+  Neutral: 'Neutral',
+  NoHire: 'No Hire',
+  StrongNoHire: 'Strong No Hire',
+} as const;
 
-export type InterviewStatus = 
-  | 'Scheduled' 
-  | 'Confirmed' 
-  | 'Completed' 
-  | 'Canceled' 
-  | 'Rescheduled' 
-  | 'No Show'
-  | 'In Progress'
-  | 'Pending Feedback';
+export type Recommendation = typeof Recommendation[keyof typeof Recommendation];
+
 
 export interface Feedback {
   id: string;
@@ -115,12 +135,15 @@ export interface FeedbackCategory {
   comments?: string;
 }
 
-export type Recommendation = 
-  | 'Strong Hire' 
-  | 'Hire' 
-  | 'Neutral' 
-  | 'No Hire' 
-  | 'Strong No Hire';
+// ==================== Offer ====================
+export type OfferStatus =
+  | 'Draft'
+  | 'Pending Approval'
+  | 'Approved'
+  | 'Sent'
+  | 'Accepted'
+  | 'Declined'
+  | 'Expired';
 
 export interface Offer {
   id: string;
@@ -135,15 +158,7 @@ export interface Offer {
   notes?: string;
 }
 
-export type OfferStatus = 
-  | 'Draft' 
-  | 'Pending Approval' 
-  | 'Approved' 
-  | 'Sent' 
-  | 'Accepted' 
-  | 'Declined' 
-  | 'Expired';
-
+// ==================== Activity ====================
 export interface Activity {
   id: string;
   user: {
@@ -155,14 +170,13 @@ export interface Activity {
   timestamp: string;
 }
 
-// New types for advanced interview scheduling
-export interface TimeSlot {
-  id: string;
-  startTime: string;
-  endTime: string;
-  day: string;
-  isAvailable: boolean;
-}
+// ==================== Documents ====================
+export type DocumentType =
+  | 'Resume'
+  | 'Cover Letter'
+  | 'Portfolio'
+  | 'Certificate'
+  | 'Other';
 
 export interface Document {
   id: string;
@@ -172,12 +186,21 @@ export interface Document {
   uploadedAt: string;
 }
 
-export type DocumentType = 
-  | 'Resume' 
-  | 'Cover Letter' 
-  | 'Portfolio' 
-  | 'Certificate' 
-  | 'Other';
+// ==================== Time Slots ====================
+export interface TimeSlot {
+  id: string;
+  startTime: string;
+  endTime: string;
+  day: string;
+  isAvailable: boolean;
+}
+
+// ==================== Video Conferencing ====================
+export type VideoConferencingPlatform =
+  | 'Zoom'
+  | 'Google Meet'
+  | 'Microsoft Teams'
+  | 'Custom';
 
 export interface VideoConferencing {
   platform: VideoConferencingPlatform;
@@ -186,12 +209,7 @@ export interface VideoConferencing {
   password?: string;
 }
 
-export type VideoConferencingPlatform = 
-  | 'Zoom' 
-  | 'Google Meet' 
-  | 'Microsoft Teams' 
-  | 'Custom';
-
+// ==================== Advanced Interview ====================
 export interface AdvancedInterview extends Interview {
   timeZone: string;
   videoConferencing: VideoConferencing;
@@ -221,6 +239,7 @@ export interface ATSIntegration {
   lastSynced?: string;
 }
 
+// ==================== Reports ====================
 export interface InterviewReport {
   id: string;
   title: string;

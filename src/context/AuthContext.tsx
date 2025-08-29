@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, ThemeType, ColorScheme } from '@/types';
+import { User, ThemeType, ColorScheme } from '../types';
 import { 
   login as apiLogin, 
   register as apiRegister, 

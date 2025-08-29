@@ -149,7 +149,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                 <NavigationMenuTrigger>Career Tools</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-4 w-[400px] md:w-[500px] grid-cols-1">
-                    {[
+                    {[ 
                       {
                         title: "AI Mock Interviews",
                         description: "Practice with realistic AI interviewers",
@@ -177,7 +177,12 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                     ].map((item, idx) => (
                       <li key={idx}>
                         <NavigationMenuLink asChild>
-                          <a href="#" className="flex items-center p-2 hover:bg-slate-100 rounded-md transition-colors">
+                          <a href={
+                            item.title === 'AI Mock Interviews' ? '/tools/mock-interviews' :
+                            item.title === 'ATS Resume Builder' ? '/tools/resume-builder' :
+                            item.title === 'Skill Assessments' ? '/tools/skill-assessments' :
+                            item.title === 'Job Matching' ? '/tools/job-matching' : '#'
+                          } className="flex items-center p-2 hover:bg-slate-100 rounded-md transition-colors">
                             <div className={`mr-2 h-8 w-8 rounded-md flex items-center justify-center ${item.color}`}>
                               {/* Using a generic icon element since we can't dynamically import icons */}
                               <div className="h-4 w-4"></div>
@@ -200,25 +205,25 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                   <ul className="grid w-[400px] gap-3 p-4">
                     <ListItem
                       title="Career Blog"
-                      href="#"
+                      href="/resources/blog"
                     >
                       Expert insights on job searching and career growth
                     </ListItem>
                     <ListItem
                       title="Interview Tips"
-                      href="#"
+                      href="/resources/interview-tips"
                     >
                       Comprehensive guides for interview success
                     </ListItem>
                     <ListItem
                       title="Resume Guide"
-                      href="#"
+                      href="/resources/resume-guide"
                     >
                       Learn how to create ATS-optimized resumes
                     </ListItem>
                     <ListItem
                       title="Success Stories"
-                      href="#"
+                      href="/resources/success-stories"
                     >
                       See how others landed their dream jobs
                     </ListItem>
