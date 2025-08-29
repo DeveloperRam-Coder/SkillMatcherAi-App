@@ -19,26 +19,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ reduceMotion }) => {
   return (
     <motion.div
       className="relative overflow-hidden bg-white pt-20 pb-20  border-b border-gray-100"
-      style={{
-        y: reduceMotion ? 0 : heroYTransform,
-        opacity: 1,
-        backgroundImage: `repeating-linear-gradient(
-      to right,
-      rgba(0,0,0,0.05) 0,
-      rgba(0,0,0,0.05) 1px,
-      transparent 1px,
-      transparent 20px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.05) 0,
-      rgba(0,0,0,0.05) 1px,
-      transparent 1px,
-      transparent 20px
-    )`,
-        backgroundSize: '20px 20px',
-        backgroundPosition: '0 0',
-      }}
+    //   style={{
+    //     y: reduceMotion ? 0 : heroYTransform,
+    //     opacity: 1,
+    //     backgroundImage: `repeating-linear-gradient(
+    //   to right,
+    //   rgba(0,0,0,0.05) 0,
+    //   rgba(0,0,0,0.05) 1px,
+    //   transparent 1px,
+    //   transparent 20px
+    // ),
+    // repeating-linear-gradient(
+    //   to bottom,
+    //   rgba(0,0,0,0.05) 0,
+    //   rgba(0,0,0,0.05) 1px,
+    //   transparent 1px,
+    //   transparent 20px
+    // )`,
+    //     backgroundSize: '20px 20px',
+    //     backgroundPosition: '0 0',
+    //   }}
       animate={{
         backgroundPosition: ['0 0', '20px 20px'], // move diagonally
       }}
@@ -50,7 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ reduceMotion }) => {
       }}
     >
       {/* Decorative Background Pattern (optional) */}
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
+      <div className="absolute inset-0 bg-[url('/grid-pattern.avif')] opacity-5"></div>
 
       {/* Animated Blobs */}
       <motion.div

@@ -9,7 +9,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true, // allow cookies if backend sets them
-  timeout: 10000,        // prevent hanging requests
+  timeout: 20000,        // prevent hanging requests
 });
 
 // ✅ Attach token if available

@@ -3,17 +3,17 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // Custom plugin for tagging components (optional, safe to keep)
-function componentTagger() {
-  return {
-    name: "component-tagger",
-    transform(code: any, id: string) {
-      if (id.endsWith(".tsx") || id.endsWith(".jsx")) {
-        console.log(`[ComponentTagger] Processing: ${id}`);
-      }
-      return code;
-    },
-  };
-}
+// function componentTagger() {
+//   return {
+//     name: "component-tagger",
+//     transform(code: any, id: string) {
+//       if (id.endsWith(".tsx") || id.endsWith(".jsx")) {
+//         console.log(`[ComponentTagger] Processing: ${id}`);
+//       }
+//       return code;
+//     },
+//   };
+// }
 
 // Export Vite configuration
 export default defineConfig(({ mode }) => ({
@@ -24,10 +24,10 @@ export default defineConfig(({ mode }) => ({
   },
 
   // ✅ Plugins
-  plugins: [
-    react(),
-    ...(mode === "development" ? [componentTagger()] : []),
-  ],
+  // plugins: [
+  //   react(),
+  //   ...(mode === "development" ? [componentTagger()] : []),
+  // ],
 
   // ✅ Module resolution aliases
   resolve: {
