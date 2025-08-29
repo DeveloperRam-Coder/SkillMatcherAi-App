@@ -1,64 +1,94 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Video, Clock, User, FileText } from "lucide-react";
+import { Calendar, Video, Clock, User, FileText, Briefcase, TrendingUp, CheckCircle, AlertCircle } from "lucide-react";
 import CandidateLayout from "@/components/layout/CandidateLayout";
 import { useAuth } from "@/context/AuthContext";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 const mockInterviews = [
   {
     id: "1",
     position: "Frontend Developer",
-    company: "Tech Solutions Inc.",
+    company: "TechCorp Solutions",
     type: "Technical",
-    date: "2023-07-15",
+    date: "2024-01-25",
     time: "10:00 AM - 11:00 AM",
     interviewers: ["Alex Chen"],
-    status: "upcoming"
+    status: "upcoming",
+    videoLink: "https://zoom.us/j/123456789"
   },
   {
     id: "2",
     position: "React Developer",
     company: "Digital Innovations",
     type: "Behavioral",
-    date: "2023-07-22",
+    date: "2024-01-28",
     time: "2:00 PM - 3:00 PM",
     interviewers: ["Lisa Wong", "David Kim"],
-    status: "upcoming"
+    status: "upcoming",
+    videoLink: "https://meet.google.com/abc-defg-hij"
   },
 ];
 
 const mockApplications = [
   {
     id: "1",
+    company: "TechCorp Solutions",
     position: "Frontend Developer",
-    company: "Tech Solutions Inc.",
-    status: "Interview Scheduled",
-    appliedDate: "2023-07-01"
+    status: "Interview",
+    appliedDate: "2024-01-10",
+    lastUpdated: "2024-01-18"
   },
   {
     id: "2",
-    position: "React Developer",
-    company: "Digital Innovations",
-    status: "Interview Scheduled",
-    appliedDate: "2023-07-05"
+    company: "InnovateLab",
+    position: "Full Stack Developer",
+    status: "Screening",
+    appliedDate: "2024-01-12",
+    lastUpdated: "2024-01-16"
   },
   {
     id: "3",
-    position: "UI Developer",
-    company: "Creative Labs",
-    status: "Application Submitted",
-    appliedDate: "2023-07-12"
+    company: "DataFlow Systems",
+    position: "Frontend Engineer",
+    status: "Applied",
+    appliedDate: "2024-01-15",
+    lastUpdated: "2024-01-15"
   }
 ];
 
 const CandidateDashboard = () => {
-  const [activeTab, setActiveTab] = useState("overview");
   const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  const getStatusColor = (status: string) => {
+    const colors = {
+      'Applied': 'bg-blue-100 text-blue-800',
+      'Screening': 'bg-yellow-100 text-yellow-800',
+      'Interview': 'bg-purple-100 text-purple-800',
+      'Offer': 'bg-green-100 text-green-800',
+      'Rejected': 'bg-red-100 text-red-800'
+    };
+    return colors[status] || 'bg-gray-100 text-gray-800';
+  };
+
+  const getStatusIcon = (status: string) => {
+    const icons = {
+      'Applied': Clock,
+      'Screening': AlertCircle,
+      'Interview': Calendar,
+      'Offer': CheckCircle,
+      'Rejected': AlertCircle
+    };
+    return icons[status] || Clock;
+  };
+
+  const upcomingInterviews = mockInterviews.filter(interview => interview.status === 'upcoming');
+  const activeApplications = mockApplications.filter(app => ['Applied', 'Screening', 'Interview'].includes(app.status));
+  const offers = mockApplications.filter(app => app.status === 'Offer').length;
   
   return (
     <CandidateLayout>
@@ -66,8 +96,13 @@ const CandidateDashboard = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold tracking-tight">Candidate Dashboard</h1>
           <div className="flex items-center gap-4">
-            <Button variant="outline" onClick={() => window.location.href = "/candidate/applications"}>
+            <Button variant="outline" onClick={() => navigate('/candidate/applications')}>
+              <FileText className="mr-2 h-4 w-4" />
               My Applications
+            </Button>
+            <Button onClick={() => navigate('/candidate/profile')}>
+              <User className="mr-2 h-4 w-4" />
+              Edit Profile
             </Button>
           </div>
         </div>
@@ -77,220 +112,205 @@ const CandidateDashboard = () => {
             <User className="h-5 w-5 text-green-700" />
           </div>
           <div>
-            <p className="text-green-700">Welcome, {user?.name}! Your next interview is on July 15th at 10:00 AM.</p>
+            <p className="text-green-700">Welcome back, {user?.firstName || user?.name || 'Candidate'}! You have {upcomingInterviews.length} upcoming interview{upcomingInterviews.length !== 1 ? 's' : ''}.</p>
           </div>
         </div>
 
-        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="interviews">My Interviews</TabsTrigger>
-            <TabsTrigger value="applications">My Applications</TabsTrigger>
-          </TabsList>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Upcoming Interviews
+              </CardTitle>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{upcomingInterviews.length}</div>
+              <p className="text-xs text-muted-foreground">
+                {upcomingInterviews.length > 0 ? `Next interview in ${Math.ceil((new Date(upcomingInterviews[0].date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days` : 'No upcoming interviews'}
+              </p>
+            </CardContent>
+          </Card>
           
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Upcoming Interviews
-                  </CardTitle>
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">2</div>
-                  <p className="text-xs text-muted-foreground">
-                    Next interview in 3 days
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Active Applications
-                  </CardTitle>
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">3</div>
-                  <p className="text-xs text-muted-foreground">
-                    Across 3 different companies
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Profile Completion
-                  </CardTitle>
-                  <User className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">85%</div>
-                  <p className="text-xs text-muted-foreground">
-                    Complete your profile to improve chances
-                  </p>
-                </CardContent>
-              </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Active Applications
+              </CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{activeApplications.length}</div>
+              <p className="text-xs text-muted-foreground">
+                Across {activeApplications.length} different companies
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Offers Received
+              </CardTitle>
+              <CheckCircle className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{offers}</div>
+              <p className="text-xs text-muted-foreground">
+                {offers > 0 ? 'Congratulations!' : 'Keep applying'}
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Profile Completion
+              </CardTitle>
+              <User className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">85%</div>
+              <p className="text-xs text-muted-foreground">
+                Complete your profile to improve chances
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+          {/* Upcoming Interviews */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Upcoming Interviews</CardTitle>
+                  <CardDescription>Your scheduled interviews</CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => navigate('/candidate/applications')}>
+                  View All
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {upcomingInterviews.length > 0 ? (
+                <div className="space-y-4">
+                  {upcomingInterviews.map((interview) => (
+                    <div key={interview.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium">{interview.position}</h4>
+                          <Badge variant="outline">{interview.type}</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{interview.company}</p>
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {new Date(interview.date).toLocaleDateString()}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {interview.time}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        {interview.videoLink && (
+                          <Button size="sm" variant="outline" onClick={() => window.open(interview.videoLink, '_blank')}>
+                            <Video className="mr-2 h-3 w-3" />
+                            Join
+                          </Button>
+                        )}
+                        <Button size="sm" onClick={() => navigate(`/candidate/applications/${interview.id}`)}>
+                          Details
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-muted-foreground">No upcoming interviews</p>
+                  <Button className="mt-2" onClick={() => navigate('/candidate/applications')}>
+                    Browse Jobs
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Recent Applications */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Recent Applications</CardTitle>
+                  <CardDescription>Your latest job applications</CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => navigate('/candidate/applications')}>
+                  View All
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockApplications.slice(0, 3).map((application) => {
+                  const StatusIcon = getStatusIcon(application.status);
+                  return (
+                    <div key={application.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium">{application.position}</h4>
+                          <Badge className={getStatusColor(application.status)}>
+                            <StatusIcon className="h-3 w-3 mr-1" />
+                            {application.status}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{application.company}</p>
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                          <span>Applied {new Date(application.appliedDate).toLocaleDateString()}</span>
+                          <span>Updated {new Date(application.lastUpdated).toLocaleDateString()}</span>
+                        </div>
+                      </div>
+                      <Button size="sm" variant="outline" onClick={() => navigate(`/candidate/applications/${application.id}`)}>
+                        View
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>Common tasks and shortcuts</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+              <Button variant="outline" className="h-20 flex-col gap-2" onClick={() => navigate('/candidate/applications/new')}>
+                <Briefcase className="h-6 w-6" />
+                <span>Apply to Jobs</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2" onClick={() => navigate('/candidate/profile')}>
+                <User className="h-6 w-6" />
+                <span>Update Profile</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2" onClick={() => navigate('/candidate/applications')}>
+                <FileText className="h-6 w-6" />
+                <span>Track Applications</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2" onClick={() => navigate('/candidate/settings')}>
+                <TrendingUp className="h-6 w-6" />
+                <span>Career Goals</span>
+              </Button>
             </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Upcoming Interviews</CardTitle>
-                <CardDescription>
-                  Your scheduled interviews for the next 7 days
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockInterviews.map((interview) => (
-                    <div key={interview.id} className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div>
-                        <h3 className="font-medium">{interview.position}</h3>
-                        <p className="text-sm text-muted-foreground">{interview.company}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Badge variant="outline">{interview.type}</Badge>
-                        </div>
-                        <div className="flex gap-4 mt-1">
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Calendar className="h-3 w-3" />
-                            <span>{interview.date}</span>
-                          </div>
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            <span>{interview.time}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline">Prepare</Button>
-                        <Button size="sm">
-                          <Video className="h-4 w-4 mr-1" />
-                          Join
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Application Status</CardTitle>
-                <CardDescription>
-                  Current status of your job applications
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockApplications.map((application) => (
-                    <div key={application.id} className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div>
-                        <h3 className="font-medium">{application.position}</h3>
-                        <p className="text-sm text-muted-foreground">{application.company}</p>
-                        <div className="flex gap-4 mt-1">
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <span>Applied: {application.appliedDate}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Badge variant={application.status === "Interview Scheduled" ? "default" : "secondary"}>
-                          {application.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="interviews" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>My Interviews</CardTitle>
-                <CardDescription>
-                  All your scheduled interviews
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockInterviews.map((interview) => (
-                    <div key={interview.id} className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div>
-                        <h3 className="font-medium">{interview.position}</h3>
-                        <p className="text-sm text-muted-foreground">{interview.company}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Badge variant="outline">{interview.type}</Badge>
-                        </div>
-                        <div className="flex gap-4 mt-1">
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Calendar className="h-3 w-3" />
-                            <span>{interview.date}</span>
-                          </div>
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            <span>{interview.time}</span>
-                          </div>
-                        </div>
-                        <div className="mt-1">
-                          <p className="text-xs text-muted-foreground">
-                            Interviewers: {interview.interviewers.join(", ")}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline">Details</Button>
-                        <Button size="sm">
-                          <Video className="h-4 w-4 mr-1" />
-                          Join
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="applications" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>My Applications</CardTitle>
-                <CardDescription>
-                  Track your job applications
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockApplications.map((application) => (
-                    <div key={application.id} className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div>
-                        <h3 className="font-medium">{application.position}</h3>
-                        <p className="text-sm text-muted-foreground">{application.company}</p>
-                        <div className="flex gap-4 mt-1">
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <span>Applied: {application.appliedDate}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <Badge variant={application.status === "Interview Scheduled" ? "default" : "secondary"}>
-                          {application.status}
-                        </Badge>
-                        <Button size="sm" variant="outline">View</Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          </CardContent>
+        </Card>
       </div>
     </CandidateLayout>
   );

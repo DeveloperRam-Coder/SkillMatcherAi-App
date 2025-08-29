@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { ThemeType, ColorScheme } from "@/types";
+import { ThemeType, ColorScheme } from "../../types";
 
 interface ThemeContextType {
   theme: ThemeType;

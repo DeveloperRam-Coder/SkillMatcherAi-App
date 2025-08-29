@@ -108,22 +108,22 @@ export const Footer: React.FC = () => {
               <h4 className="text-lg font-semibold text-white mb-6">Product</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/tools/mock-interviews" className="text-gray-300 hover:text-blue-400 transition-colors">
                     AI Mock Interviews
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/tools/resume-builder" className="text-gray-300 hover:text-blue-400 transition-colors">
                     ATS Resume Builder
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/tools/skill-assessments" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Skill Assessments
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/tools/job-matching" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Job Matching
                   </a>
                 </li>
@@ -152,22 +152,22 @@ export const Footer: React.FC = () => {
               <h4 className="text-lg font-semibold text-white mb-6">Resources</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/resources/blog" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Career Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/resources/interview-tips" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Interview Tips
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/resources/resume-guide" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Resume Guide
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+                  <a href="/resources/success-stories" className="text-gray-300 hover:text-blue-400 transition-colors">
                     Success Stories
                   </a>
                 </li>
