@@ -31,6 +31,7 @@ export const CandidateStatus = {
 export type CandidateStatus = typeof CandidateStatus[keyof typeof CandidateStatus];
 
 export interface Candidate {
+  documents: any;
   id: string;
   firstName: string;
   lastName: string;
