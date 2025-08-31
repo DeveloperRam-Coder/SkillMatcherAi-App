@@ -18,7 +18,7 @@ const BenefitItem: React.FC<BenefitItemProps> = ({ icon, title, description, del
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
     >
-      <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-soft h-full transition-all duration-300 hover:shadow-hover bg-white dark:bg-gray-800">
+      <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-soft h-full transition-all duration-300 hover:shadow-hover bg-gradient-to-l from-blue-50 via-blue-100 to-white  ">
         <CardContent className="pt-6">
           <div className="flex flex-col items-center text-center">
             <motion.div
@@ -42,7 +42,7 @@ interface BenefitsSectionProps {
 
 export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
   return (
-    <div className="py-20 bg-gray-50" id="benefits">
+    <div className="py-20 bg-gradient-to-l from-blue-50 via-blue-100 to-white  " id="benefits">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -73,10 +73,10 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) =>
             Job seekers using SkillMatcherAi land interviews faster, improve their skills, and advance their careers with confidence.
           </motion.p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <BenefitItem 
+            <BenefitItem
               key={index}
               icon={benefit.icon}
               title={benefit.title}

@@ -27,7 +27,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) =>
   };
 
   return (
-    <div className="py-20 bg-white" id="features">
+    <div className="py-20 bg-gradient-to-l from-blue-50 via-blue-100 to-white  " id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -58,7 +58,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) =>
             From resume optimization to interview mastery, we've got you covered at every step of your career journey.
           </motion.p>
         </div>
-        
+
         <motion.div
           variants={staggerContainer}
           initial="hidden"
